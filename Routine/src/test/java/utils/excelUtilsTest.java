@@ -9,7 +9,7 @@ public class excelUtilsTest {
 		String excelPath = "./data/input.xlsx";
 		String sheetName = "Sheet1";
 		ExcelUtils excel = new ExcelUtils(excelPath, sheetName);
-		excel.getRowCount();
+		int rowNumber = excel.getRowCount()-1;
 		excel.getCellData(1,0);
 		
 		

@@ -31,10 +31,11 @@ public class ExcelUtils {
 		System.out.println(value);
 	}
 	
-	public static void getRowCount() {
+	public static int getRowCount() {
 		
 		int rowCount = sheet.getPhysicalNumberOfRows();
 		System.out.println("No. of rows:" + rowCount);
+		return rowCount;
 		
 	    }
 	
