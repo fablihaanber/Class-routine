@@ -2,6 +2,8 @@ package utils;
 
 import java.io.IOException;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -9,7 +11,7 @@ public class ExcelUtils {
 	
 	static XSSFWorkbook workbook;
 	static XSSFSheet sheet;
-	public ExcelUtils(String excelPath, String sheetNumber) {
+	ExcelUtils(String excelPath, String sheetNumber) {
 		
 		
 		try {
@@ -25,18 +27,25 @@ public class ExcelUtils {
 		
 		
 	}
-	public static void getCellData(int rowth,int cellth) throws IOException {
+	public static String getCellData(int rowth,int cellth) throws IOException {
+		String value;
+		Cell cell = sheet.getRow(rowth).getCell(cellth);
+		if(cell==null)value = "";
+		else value = cell.getStringCellValue();
 		
-		String value = sheet.getRow(rowth).getCell(cellth).getStringCellValue();
-		System.out.println(value);
+		return value;
 	}
 	
 	public static int getRowCount() {
 		
 		int rowCount = sheet.getPhysicalNumberOfRows();
-		System.out.println("No. of rows:" + rowCount);
 		return rowCount;
 		
 	    }
+	public static int getNumberOfCell(int rowth) throws IOException {
+			
+			int cellCount = sheet.getRow(rowth).getPhysicalNumberOfCells();
+			return cellCount;
+		}
 	
 }
