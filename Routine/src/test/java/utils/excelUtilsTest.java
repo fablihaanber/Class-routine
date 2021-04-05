@@ -1,12 +1,14 @@
 package utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class Teacher{
 	String teacherInitial;
 	String[] courses;
-	String[][] freeTime;
+	String[] freeTime;
 	
 	Teacher(String teacherInitial){
 		this.teacherInitial = teacherInitial;
@@ -37,33 +39,61 @@ public class excelUtilsTest {
 	    }
 	    
 	    ExcelUtils excel1 = new ExcelUtils(excelPath, sheet2);
-	    int[] arr = new int[2];
-		int teacherCourseCount = 0;
-		int teacherCount = 0;
-		
-		
-	    for(int i=1;i<rowNumber;i++) { 
+	   
+	    for(int i=1;i<rowNumber+1;i++) { 
 		    int noOfCell = excel1.getNumberOfCell(i-1);
-		    arr[i] = noOfCell;
 		    String[] courses;
 		    courses = new String[noOfCell];
-		    for(int j=1;j<noOfCell;j++) {
+		    for(int j=1;j<noOfCell+1;j++) {
 	  
-			    String wow;
-			    wow = excel1.getCellData(i, j);
-			    if(!wow.equals("")) {
-			    	courses[j-1] = wow;
+			    String excelCourse;
+			    excelCourse = excel1.getCellData(i, j);
+			    if(!excelCourse.equals("")) {
+			    	courses[j-1] = excelCourse;
 			    	 
 		     } 
 		  }
-		  System.out.println(Arrays.toString(courses));
+		  List<String>nonNullCourses = new ArrayList<String>();
+		  for(String course: courses) {
+			  if(course!=null) {
+				  nonNullCourses.add(course);
+			  }
+		  }
+		  String [] beautifiedCourses = nonNullCourses.toArray(new String[nonNullCourses.size()]);                
+		  teacher[i-1].courses = new String[beautifiedCourses.length] ;
+		  teacher[i-1].courses = beautifiedCourses;
 	  }
 		  
+	    
+	    ExcelUtils excel2 = new ExcelUtils(excelPath, sheet3);
+	    for(int i=1;i<rowNumber+1;i++) { 
+		    int noOfCell = excel2.getNumberOfCell(i-1);
+		    String[] freeTimes;
+		    freeTimes = new String[noOfCell];
+		    for(int j=1;j<noOfCell+1;j++) {
+	  
+			    String excelFreeTime;
+			    excelFreeTime = excel2.getCellData(i, j);
+			    if(!excelFreeTime.equals("")) {
+			    	freeTimes[j-1] = excelFreeTime;
+			    	 
+		     } 
+		  }
+		  List<String>nonNullFreeTime = new ArrayList<String>();
+		  for(String freeTime: freeTimes) {
+			  if(freeTime!=null) {
+				  nonNullFreeTime.add(freeTime);
+			  }
+		  }
+		  String [] beautifiedFreeTime = nonNullFreeTime.toArray(new String[nonNullFreeTime.size()]);                
+		  teacher[i-1].freeTime = new String[beautifiedFreeTime.length] ;
+		  teacher[i-1].freeTime = beautifiedFreeTime;
+	  }
 	    for(int i=0;i<rowNumber;i++) {
-	    	System.out.println(teacher[i].courses);
+	    	System.out.println(Arrays.toString(teacher[i].courses));
 	    	
 	    	System.out.println(teacher[i].teacherInitial);
-	    	
+	    	System.out.println(Arrays.toString(teacher[i].freeTime));
 		      
 		    }
 
